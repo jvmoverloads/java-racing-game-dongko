@@ -13,6 +13,7 @@ public class Car {
         if (canMove) {
             this.positionIndicator += "-";
         }
+        System.out.println("새롭게 작업한 내용");
     }
 
     public void printCurrPosition() {
