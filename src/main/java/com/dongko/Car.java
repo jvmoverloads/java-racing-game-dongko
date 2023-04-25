@@ -11,6 +11,7 @@ public class Car {
     public void move() {
         boolean canMove = MoveDecider.canMove();
         if (canMove) {
+            System.out.println("canMove : " + canMove);
             this.positionIndicator += "-";
         }
     }
