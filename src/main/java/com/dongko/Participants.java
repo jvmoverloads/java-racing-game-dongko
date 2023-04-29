@@ -1,6 +1,7 @@
 package com.dongko;
 
 import com.dongko.domain.model.Car;
+import com.dongko.service.Movable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +19,8 @@ public class Participants {
         return Arrays.stream(carNames.split(",")).map(Car::new).toList();
     }
 
-    public void move() {
-        cars.forEach(Car::move);
+    public void move(Movable movingStrategy) {
+        cars.forEach(car-> car.move(movingStrategy));
     }
 
     public void printMoveResult() {

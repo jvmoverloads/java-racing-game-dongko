@@ -1,9 +1,14 @@
 package com.dongko;
 
+import com.dongko.service.Movable;
+import com.dongko.service.RandomThresholdMovingStrategy;
+
 public class Game {
 
     private Participants participants;
     private int gameCount;
+
+    private Movable movingStrategy;
 
     public void start() {
         init();
@@ -12,10 +17,15 @@ public class Game {
     }
 
     private void init() {
+        getMovingStrategy();
         GameView.askCarNamesString();
         initParticipants(GameView.getConsoleInput());
         GameView.askGameCount();
         initGameCount(GameView.getConsoleInput());
+    }
+
+    private void getMovingStrategy() {
+        this.movingStrategy = new RandomThresholdMovingStrategy();
     }
 
     private void initParticipants(String carNames) {
@@ -29,7 +39,7 @@ public class Game {
     private void play() {
         int playCount = 0;
         while(playCount < gameCount) {
-            participants.move();
+            participants.move(movingStrategy);
             participants.printMoveResult();
             playCount++;
         }

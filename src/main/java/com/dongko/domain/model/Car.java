@@ -1,7 +1,7 @@
 package com.dongko.domain.model;
 
 import com.dongko.GameView;
-import com.dongko.MoveDecider;
+import com.dongko.service.Movable;
 
 public class Car {
     private final CarName name;
@@ -12,11 +12,9 @@ public class Car {
         this.position = new Position();
     }
 
-    public void move() {
-        boolean canMove = MoveDecider.canMove();
-        if (canMove) {
-            System.out.println("canMove : " + canMove);
-            this.position.increase();
+    public void move(Movable movingStrategy) {
+        if (movingStrategy.canMove()) {
+            position = this.position.move();
         }
     }
 

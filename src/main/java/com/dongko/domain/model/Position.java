@@ -1,20 +1,25 @@
 package com.dongko.domain.model;
 
+import com.dongko.domain.exception.InvalidPositionException;
+
 import java.util.Objects;
 
 public class Position {
-    private int position;
+    private final int position;
 
     public Position() {
         this(0);
     }
 
     public Position(int position) {
+        if (position < 0) {
+            throw new InvalidPositionException();
+        }
         this.position = position;
     }
 
-    public void increase() {
-        this.position++;
+    public Position move() {
+        return new Position(position+1);
     }
 
     public String getCurrentPosition() {
