@@ -1,5 +1,7 @@
 package com.dongko;
 
+import com.dongko.domain.model.Car;
+
 import java.util.Arrays;
 import java.util.List;
 

@@ -1,11 +1,14 @@
-package com.dongko;
+package com.dongko.domain.model;
+
+import com.dongko.GameView;
+import com.dongko.MoveDecider;
 
 public class Car {
-    private final String name;
+    private final CarName name;
     private String positionIndicator = "";
 
     public Car(String name) {
-        this.name = name;
+        this.name = new CarName(name);
     }
 
     public void move() {
