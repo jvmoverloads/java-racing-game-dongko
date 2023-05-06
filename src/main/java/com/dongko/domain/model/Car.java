@@ -1,34 +1,33 @@
 package com.dongko.domain.model;
 
 import com.dongko.GameView;
-import com.dongko.MoveDecider;
+import com.dongko.service.Movable;
 
 public class Car {
     private final CarName name;
-    private String positionIndicator = "";
+    private Position position;
 
     public Car(String name) {
         this.name = new CarName(name);
+        this.position = new Position();
     }
 
-    public void move() {
-        boolean canMove = MoveDecider.canMove();
-        if (canMove) {
-            System.out.println("canMove : " + canMove);
-            this.positionIndicator += "-";
+    public void move(Movable movingStrategy) {
+        if (movingStrategy.canMove()) {
+            position = this.position.move();
         }
     }
 
     public void printCurrPosition() {
-        GameView.print(this.name + " : " + positionIndicator);
+        GameView.print(this.name + " : " + this.position.getCurrentPosition());
     }
 
     public int getCurrentPosition() {
-        return this.positionIndicator.length();
+        return this.position.getCurrentPosition().length();
     }
 
     public String getNameIfWin(int winnerPosition) {
-        if (this.positionIndicator.length() == winnerPosition) {
+        if (this.position.getCurrentPosition().length() == winnerPosition) {
             return this.name + ", ";
         }
         return "";

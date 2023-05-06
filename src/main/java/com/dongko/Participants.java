@@ -1,39 +1,29 @@
 package com.dongko;
 
-import com.dongko.domain.model.Car;
+import com.dongko.domain.model.Cars;
+import com.dongko.service.Movable;
 
-import java.util.Arrays;
-import java.util.List;
 
 public class Participants {
 
-    private final List<Car> cars;
+    private final Cars cars;
 
     public Participants(String carNames) {
-        cars = initCars(carNames);
+        this.cars = new Cars(carNames);
     }
 
-    private List<Car> initCars(String carNames) {
-        StringValidator.validateCarNamesString(carNames);
-        return Arrays.stream(carNames.split(",")).map(Car::new).toList();
-    }
-
-    public void move() {
-        cars.forEach(Car::move);
+    public void move(Movable movingStrategy) {
+        cars.play(movingStrategy);
     }
 
     public void printMoveResult() {
-        GameView.print("실행 결과");
-        cars.forEach(Car::printCurrPosition);
-        GameView.printLine();
+        cars.printCurrPositions();
     }
 
     public void printSummary() {
-        int winnerPosition = cars.stream().mapToInt(Car::getCurrentPosition).max().getAsInt();
+        int winnerPosition = cars.getWinnerPosition();
         StringBuilder result = new StringBuilder();
-        cars.forEach(
-            car -> result.append(car.getNameIfWin(winnerPosition))
-        );
+        result.append(cars.getWinnerNames(winnerPosition));
         GameView.print(result.substring(0, result.length() - 2) + "가 최종 우승했습니다.");
     }
 }
